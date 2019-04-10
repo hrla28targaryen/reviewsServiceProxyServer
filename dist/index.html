@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rent The Runway</title>
+</head>
+<body>
+    <div id="Navbar"></div>
+    <div id="Reservation"></div>
+    <div id="Reviews"></div>
+    <script src="/lib/react.development.js"></script>
+    <script src="/lib/react-dom.development.js"></script>
+    <script src="http://localhost:3004/bundle.js"></script>
+    <script src="http://localhost:3001/bundle.js"></script>
+    <script src="http://localhost:3002/bundle.js"></script>
+    <script>
+        ReactDOM.render(
+          React.createElement(MainNavigation),
+          document.getElementById('Navbar')
+        );
+
+        ReactDOM.render(
+            React.createElement(Reservation),
+            document.getElementById('Reservation')
+        )
+
+        ReactDOM.render(
+          React.createElement(HOC),
+          document.getElementById('Reviews')
+        );
+    </script>
+</body>
+</html>
