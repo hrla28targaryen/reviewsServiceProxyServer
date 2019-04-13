@@ -1,0 +1,8 @@
+#Main-Container {
+    overflow: hidden;
+    margin: 30px auto 60px;
+    max-width: 1300px;
+    min-width: 960px;
+    padding: 30px 30px 0;
+    position: relative;
+}
