@@ -7,6 +7,7 @@ const request = require('request');
 var rp = require('request-promise');
 // const routes = require('./router.js');
 
+
 const app = express();
 const port = 3000;
 
@@ -17,18 +18,30 @@ app.use(bodyParser.urlencoded({ extended : true }));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.all('/api/*', (req,res) => {
-    var pathArr = req.path.split('/');
-    if(pathArr[2] === 'reviews'){
-        res.redirect('http://localhost:3002' + req.path);
-    } else if(pathArr[2] === 'images') {
-        res.redirect('http://localhost:1143' + req.path);
-    } else if(pathArr[2] === 'gallery') {
-        res.redirect('http://localhost:3005' + req.path);
-    } else {
-        res.redirect('http://localhost:3001' + req.path);
-    }
-})
+// app.all('/api/*', (req,res) => {
+//     var pathArr = req.path.split('/');
+//     if(pathArr[2] === 'reviews'){
+//         res.redirect('http://localhost:3002' + req.path);
+//     } else if(pathArr[2] === 'images') {
+//         res.redirect('http://localhost:1143' + req.path);
+//     } else if(pathArr[2] === 'gallery') {
+//         res.redirect('http://localhost:3005' + req.path);
+//     } else {
+//         res.redirect('http://localhost:3001' + req.path);
+//     }
+// });
+
+var proxy = require('http-proxy-middleware');
+app.use('/api', proxy ({
+ target:'http://localhost:3000',
+ router: {
+   '/reviews': 'http://localhost:3002',
+   '/images': 'http://localhost:3007',
+   '/reservation': 'http://localhost:3001',
+   '/gallery': 'http://localhost:3005'
+ },
+ changeOrigin: true
+}))
 
 
 app.listen(port, () => `Listening for connections on port ${port}`);
